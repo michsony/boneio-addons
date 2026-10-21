@@ -1,0 +1,172 @@
+esphome:
+  name: irrigation-validation-v2
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+logger:
+wifi:
+  ssid: Validation
+  reboot_timeout: 0s
+  password: validation-password
+output:
+  - platform: gpio
+    id: out_01
+    pin: GPIO25
+  - platform: gpio
+    id: out_02
+    pin: GPIO26
+  - platform: gpio
+    id: out_03
+    pin: GPIO27
+api:
+  reboot_timeout: 0s
+external_components:
+  - source:
+      type: git
+      url: https://github.com/michsony/boneio-addons
+      ref: v0.1.0
+    components:
+      - boneio_irrigation
+    refresh: never
+boneio_irrigation:
+  - configuration:
+      version: 1
+      id: garden_irrigation
+      name: Nawadnianie ogrodu
+      timezone: Europe/Warsaw
+      capacity:
+        zones: 2
+        pumps: 1
+        programs: 2
+        starts: 2
+        queue: 8
+      zones:
+        - id: lawn
+          name: Lawn
+          icon: mdi:sprinkler-variant
+          channel: output:out_01
+          enabled: true
+          seconds: 900
+          min: 1
+          max: 7200
+          pump: master
+          allowedPumps:
+            - master
+          priority: 0
+          group: 0
+          order: 0
+          schedule:
+            mode: inherit
+            days: 127
+            every: 1
+            anchor: 2026-01-01
+          cycle:
+            seconds: 0
+            soak: 0
+          soilSensor: ""
+          soilMax: 70
+        - id: beds
+          name: Beds
+          icon: mdi:sprinkler-variant
+          channel: output:out_02
+          enabled: true
+          seconds: 900
+          min: 1
+          max: 7200
+          pump: master
+          allowedPumps:
+            - master
+          priority: 0
+          group: 0
+          order: 0
+          schedule:
+            mode: inherit
+            days: 127
+            every: 1
+            anchor: 2026-01-01
+          cycle:
+            seconds: 0
+            soak: 0
+          soilSensor: ""
+          soilMax: 70
+      pumps:
+        - id: master
+          name: Master
+          channel: output:out_03
+          enabled: true
+          service: false
+          startDelay: 2
+          stopDelay: 2
+          startOrder: valve-first
+          stopOrder: pump-first
+          minRun: 1
+          rest: 10
+          maxRun: 14400
+          pressureSensor: ""
+          flowSensor: ""
+          pressureMin: 0
+          flowMin: 0
+          flowMax: 0
+      programs:
+        - id: morning
+          name: Program
+          icon: mdi:sprinkler
+          enabled: true
+          priority: 0
+          policy: queue
+          season: 100
+          schedule:
+            mode: weekly
+            days: 127
+            every: 1
+            anchor: 2026-01-01
+          cycle:
+            seconds: 0
+            soak: 0
+          zones:
+            - zone: lawn
+              enabled: true
+              seconds: 60
+              order: 0
+            - zone: beds
+              enabled: true
+              seconds: 60
+              order: 1
+          starts:
+            - enabled: true
+              hour: 5
+              minute: 30
+              schedule:
+                mode: inherit
+                days: 127
+                every: 1
+                anchor: 2026-01-01
+              cycle:
+                seconds: -1
+                soak: -1
+              zones: []
+            - enabled: false
+              hour: 5
+              minute: 30
+              schedule:
+                mode: inherit
+                days: 127
+                every: 1
+                anchor: 2026-01-01
+              cycle:
+                seconds: -1
+                soak: -1
+              zones: []
+      enabled: true
+      automatic: true
+      season: 100
+      maxWait: 3600
+      parallel: 1
+      rainHours: 24
+      sensorGrace: 15
+      rainSensor: ""
+      emergencySensor: ""
+      temperatureSensor: ""
+      temperatureMin: 2
+      exclusions: []

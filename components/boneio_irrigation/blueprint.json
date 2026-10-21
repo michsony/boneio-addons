@@ -1,0 +1,1930 @@
+{
+  "switch": [
+    {
+      "platform": "output",
+      "id": "bis_controller_token_driver_bis_zone_token",
+      "output": "out_01",
+      "internal": true,
+      "restore_mode": "ALWAYS_OFF"
+    },
+    {
+      "platform": "output",
+      "id": "bis_controller_token_driver_bis_pump_token",
+      "output": "out_02",
+      "internal": true,
+      "restore_mode": "ALWAYS_OFF"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_no_pump",
+      "internal": true,
+      "optimistic": true,
+      "restore_mode": "ALWAYS_OFF"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_enabled",
+      "name": "BIS_CONTROLLER_NAME Sterownik aktywny",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(0));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(0,1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(0,0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_automatic",
+      "name": "BIS_CONTROLLER_NAME Harmonogram automatyczny",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(1));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(1,1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(1,0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_enabled",
+      "name": "BIS_CONTROLLER_NAME Sekcja aktywna",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(r->l.zone(zi,0)));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,0),1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,0),0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_0",
+      "name": "BIS_CONTROLLER_NAME Sekcja Pon",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<0))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<0));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<0));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_1",
+      "name": "BIS_CONTROLLER_NAME Sekcja Wt",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<1))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<1));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<1));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_2",
+      "name": "BIS_CONTROLLER_NAME Sekcja Śr",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<2))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<2));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<2));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_3",
+      "name": "BIS_CONTROLLER_NAME Sekcja Czw",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<3))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<3));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<3));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_4",
+      "name": "BIS_CONTROLLER_NAME Sekcja Pt",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<4))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<4));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<4));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_5",
+      "name": "BIS_CONTROLLER_NAME Sekcja Sob",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<5))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<5));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<5));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_day_6",
+      "name": "BIS_CONTROLLER_NAME Sekcja Nd",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.zone(zi,9)))&(1<<6))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))|(1<<6));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,9),int(r->get(r->l.zone(zi,9)))&~(1<<6));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_enabled",
+      "name": "BIS_CONTROLLER_NAME Program aktywny",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(r->l.program(pi,0)));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,0),1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,0),0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_0",
+      "name": "BIS_CONTROLLER_NAME Program Pon",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<0))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<0));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<0));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_1",
+      "name": "BIS_CONTROLLER_NAME Program Wt",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<1))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<1));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<1));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_2",
+      "name": "BIS_CONTROLLER_NAME Program Śr",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<2))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<2));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<2));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_3",
+      "name": "BIS_CONTROLLER_NAME Program Czw",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<3))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<3));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<3));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_4",
+      "name": "BIS_CONTROLLER_NAME Program Pt",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<4))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<4));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<4));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_5",
+      "name": "BIS_CONTROLLER_NAME Program Sob",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<5))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<5));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<5));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_day_6",
+      "name": "BIS_CONTROLLER_NAME Program Nd",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.program(pi,2)))&(1<<6))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))|(1<<6));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,2),int(r->get(r->l.program(pi,2)))&~(1<<6));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_membership",
+      "name": "BIS_CONTROLLER_NAME Sekcja należy do programu",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(r->l.member(pi,zi,0)));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.member(pi,zi,0),1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.member(pi,zi,0),0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_enabled",
+      "name": "BIS_CONTROLLER_NAME Start aktywny",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(r->l.slot(pi,si,0)));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,0),1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,0),0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_0",
+      "name": "BIS_CONTROLLER_NAME Start Pon",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<0))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<0));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<0));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_1",
+      "name": "BIS_CONTROLLER_NAME Start Wt",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<1))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<1));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<1));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_2",
+      "name": "BIS_CONTROLLER_NAME Start Śr",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<2))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<2));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<2));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_3",
+      "name": "BIS_CONTROLLER_NAME Start Czw",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<3))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<3));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<3));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_4",
+      "name": "BIS_CONTROLLER_NAME Start Pt",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<4))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<4));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<4));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_5",
+      "name": "BIS_CONTROLLER_NAME Start Sob",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<5))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<5));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<5));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_day_6",
+      "name": "BIS_CONTROLLER_NAME Start Nd",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool((int(r->get(r->l.slot(pi,si,4)))&(1<<6))!=0);",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))|(1<<6));"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,4),int(r->get(r->l.slot(pi,si,4)))&~(1<<6));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_enabled",
+      "name": "BIS_CONTROLLER_NAME Pompa automatyczna",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(r->l.pump(mi,0)));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,0),1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,0),0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_service",
+      "name": "BIS_CONTROLLER_NAME Pompa w serwisie (blokuje start)",
+      "entity_category": "config",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return bool(r->get(r->l.pump(mi,8)));",
+      "turn_on_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,8),1);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,8),0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_manual_bis_zone_token",
+      "name": "BIS_CONTROLLER_NAME BIS_ZONE_NAME",
+      "icon": "mdi:sprinkler-variant",
+      "lambda": "return id(bis_controller_token)?id(bis_controller_token)->zone_requested(0):false;",
+      "turn_on_action": [
+        {
+          "lambda": "if(id(bis_controller_token))id(bis_controller_token)->manual_zone(0);"
+        }
+      ],
+      "turn_off_action": [
+        {
+          "lambda": "if(id(bis_controller_token))id(bis_controller_token)->cancel_zone(0);"
+        }
+      ]
+    }
+  ],
+  "globals": [
+    {
+      "id": "bis_controller_token",
+      "type": "boneio_irrigation::Engine<3,2,2,2,248,8>*",
+      "restore_value": false,
+      "initial_value": "nullptr"
+    }
+  ],
+  "sprinkler": [
+    {
+      "id": "bis_controller_token_executor_bis_zone_token",
+      "valves": [
+        {
+          "valve_switch": {
+            "id": "bis_controller_token_native_zone_bis_zone_token",
+            "name": "BIS_ZONE_NAME executor",
+            "internal": true
+          },
+          "valve_switch_id": "bis_controller_token_driver_bis_zone_token",
+          "pump_switch_id": "bis_controller_token_no_pump",
+          "run_duration": "1s"
+        }
+      ]
+    }
+  ],
+  "time": [
+    {
+      "platform": "sntp",
+      "id": "bis_controller_token_clock",
+      "timezone": "Europe/Warsaw"
+    }
+  ],
+  "esphome.on_boot": [
+    {
+      "trigger_id": "bis_controller_token_boot",
+      "priority": -100,
+      "then": [
+        {
+          "lambda": "id(bis_controller_token_driver_bis_pump_token).turn_off();\nid(bis_controller_token_driver_bis_zone_token).turn_off();\nusing Runtime=boneio_irrigation::Engine<3,2,2,2,248,8>;\nid(bis_controller_token)=new Runtime();auto *r=id(bis_controller_token);r->init({3,2,2,2},4095117586u);\nstatic const float defaults[]={1,1,100,0,3600,2,24,15,0,0,0,2,1,1,1,0,0,0,0,0,0,0,0,0,1,900,1,7200,-1,0,1,0,-1,127,1,20454,0,0,0,1,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,0,0,1,10,14400,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,127,1,20454,100,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,5,30,-1,127,1,20454,-1,-1,0,0,5,30,-1,127,1,20454,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,-1,0,0,0,0,0,0,-1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};for(int i=0;i<248;i++)r->values[i]=defaults[i];\nstatic auto preference=esphome::global_preferences->make_preference<Runtime::Snapshot>(2570853568u);\npreference.load(&r->saved);r->restore();\nr->hooks.start=[](int zone,uint32_t seconds){switch(zone){case 0: {auto *executor=id(bis_controller_token_executor_bis_zone_token); executor->set_auto_advance(false);executor->set_queue_enable(false);executor->set_multiplier(1.0f);int pump=int(id(bis_controller_token)->z(0,4)); esphome::switch_::Switch *driver=id(bis_controller_token_no_pump);switch(pump){case 0:driver=id(bis_controller_token_driver_bis_pump_token);break;}executor->configure_valve_pump_switch(0,driver);float start=pump>=0?id(bis_controller_token)->m(pump,1):0,stop=pump>=0?id(bis_controller_token)->m(pump,2):0;if(pump>=0&&id(bis_controller_token)->m(pump,3))executor->set_valve_start_delay(start);else executor->set_pump_start_delay(start);if(pump>=0&&id(bis_controller_token)->m(pump,4))executor->set_pump_stop_delay(stop);else executor->set_valve_stop_delay(stop);executor->start_single_valve(0,seconds);break;}}};\nr->hooks.stop=[](int zone){switch(zone){case 0:id(bis_controller_token_executor_bis_zone_token).shutdown(true);break;}};\nr->hooks.emergency=[](){id(bis_controller_token_driver_bis_pump_token).turn_off();\nid(bis_controller_token_driver_bis_zone_token).turn_off();};\nr->hooks.busy=[](int zone)->int{switch(zone){case 0:return id(bis_controller_token_executor_bis_zone_token).controller_state()!=esphome::sprinkler::IDLE;}return 0;};\nr->hooks.valve=[](int zone)->int{switch(zone){case 0:return id(bis_controller_token_driver_bis_zone_token).state;}return 0;};\nr->hooks.pump=[](int pump)->int{switch(pump){case 0:return id(bis_controller_token_driver_bis_pump_token).state;}return 0;};\nr->hooks.sensor=[](int kind,int index)->float{switch(kind){case 0: return 0.0f;\ncase 1: return 0.0f;\ncase 2: return NAN;\ncase 3: switch(index) {case 0: return NAN; default:return NAN;}\ncase 4: switch(index) {case 0: return NAN; default:return NAN;}\ncase 5: switch(index) {case 0: return NAN; default:return NAN;}}return NAN;};\nr->hooks.commit=[]()->bool{const auto &snapshot=id(bis_controller_token)->snapshot();return preference.save(&snapshot)&&esphome::global_preferences->sync();};\n"
+        }
+      ]
+    }
+  ],
+  "esphome.on_shutdown": [
+    {
+      "trigger_id": "bis_controller_token_shutdown",
+      "priority": 700,
+      "then": [
+        {
+          "lambda": "if(id(bis_controller_token)){id(bis_controller_token)->stop_all(5,true);id(bis_controller_token)->commit();}"
+        }
+      ]
+    }
+  ],
+  "interval": [
+    {
+      "id": "bis_controller_token_tick",
+      "interval": "250ms",
+      "then": [
+        {
+          "lambda": "if(!id(bis_controller_token))return;static uint32_t last=millis();static uint64_t elapsed=0;uint32_t now=millis();elapsed+=uint32_t(now-last);last=now;auto t=id(bis_controller_token_clock).now();auto *r=id(bis_controller_token);r->tick(t.timestamp,boneio_irrigation::civil_day(t.year,t.month,t.day_of_month),(t.day_of_week+5)%7,t.day_of_month,t.hour*60+t.minute,double(elapsed)/1000.0,t.is_valid());static double checkpoint=0;if(r->moving()&&r->mono-checkpoint>=900){checkpoint=r->mono;r->mark();}if(r->dirty&&r->mono-r->dirtyAt>=5)r->commit();"
+        }
+      ]
+    }
+  ],
+  "select": [
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_context",
+      "name": "BIS_CONTROLLER_NAME Edytowana sekcja",
+      "optimistic": true,
+      "options": [
+        "BIS_ZONE_NAME"
+      ],
+      "initial_option": "BIS_ZONE_NAME"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_context",
+      "name": "BIS_CONTROLLER_NAME Edytowana pompa",
+      "optimistic": true,
+      "options": [
+        "BIS_PUMP_NAME"
+      ],
+      "initial_option": "BIS_PUMP_NAME"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_context",
+      "name": "BIS_CONTROLLER_NAME Edytowany program",
+      "optimistic": true,
+      "options": [
+        "BIS_PROGRAM_NAME"
+      ],
+      "initial_option": "BIS_PROGRAM_NAME"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_context",
+      "name": "BIS_CONTROLLER_NAME Edytowany start",
+      "optimistic": true,
+      "options": [
+        "1",
+        "2"
+      ],
+      "initial_option": "1"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_exclusion_context",
+      "name": "BIS_CONTROLLER_NAME Edytowana data wykluczenia",
+      "optimistic": true,
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "initial_option": "1"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_pump",
+      "name": "BIS_CONTROLLER_NAME Sekcja pompa",
+      "entity_category": "config",
+      "options": [
+        "Bez pompy",
+        "BIS_PUMP_NAME"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.zone(zi,4)))-(-1);switch(value){case 0:return {\"Bez pompy\"};case 1:return {\"BIS_PUMP_NAME\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Bez pompy\"){r->set(r->l.zone(zi,4),-1);}if(x==\"BIS_PUMP_NAME\"){r->set(r->l.zone(zi,4),0);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_days_mode",
+      "name": "BIS_CONTROLLER_NAME Sekcja tryb dni",
+      "entity_category": "config",
+      "options": [
+        "Dziedzicz",
+        "Tydzień",
+        "Co N dni",
+        "Nieparzyste",
+        "Parzyste"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.zone(zi,8)))-(-1);switch(value){case 0:return {\"Dziedzicz\"};case 1:return {\"Tydzień\"};case 2:return {\"Co N dni\"};case 3:return {\"Nieparzyste\"};case 4:return {\"Parzyste\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Dziedzicz\"){r->set(r->l.zone(zi,8),-1);}if(x==\"Tydzień\"){r->set(r->l.zone(zi,8),0);}if(x==\"Co N dni\"){r->set(r->l.zone(zi,8),1);}if(x==\"Nieparzyste\"){r->set(r->l.zone(zi,8),2);}if(x==\"Parzyste\"){r->set(r->l.zone(zi,8),3);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_days_mode",
+      "name": "BIS_CONTROLLER_NAME Program tryb dni",
+      "entity_category": "config",
+      "options": [
+        "Tydzień",
+        "Co N dni",
+        "Nieparzyste",
+        "Parzyste"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.program(pi,1)))-(0);switch(value){case 0:return {\"Tydzień\"};case 1:return {\"Co N dni\"};case 2:return {\"Nieparzyste\"};case 3:return {\"Parzyste\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Tydzień\"){r->set(r->l.program(pi,1),0);}if(x==\"Co N dni\"){r->set(r->l.program(pi,1),1);}if(x==\"Nieparzyste\"){r->set(r->l.program(pi,1),2);}if(x==\"Parzyste\"){r->set(r->l.program(pi,1),3);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_policy",
+      "name": "BIS_CONTROLLER_NAME Program konflikt",
+      "entity_category": "config",
+      "options": [
+        "Kolejkuj",
+        "Pomiń"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.program(pi,7)))-(0);switch(value){case 0:return {\"Kolejkuj\"};case 1:return {\"Pomiń\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Kolejkuj\"){r->set(r->l.program(pi,7),0);}if(x==\"Pomiń\"){r->set(r->l.program(pi,7),1);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_days_mode",
+      "name": "BIS_CONTROLLER_NAME Start tryb dni",
+      "entity_category": "config",
+      "options": [
+        "Dziedzicz",
+        "Tydzień",
+        "Co N dni",
+        "Nieparzyste",
+        "Parzyste"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.slot(pi,si,3)))-(-1);switch(value){case 0:return {\"Dziedzicz\"};case 1:return {\"Tydzień\"};case 2:return {\"Co N dni\"};case 3:return {\"Nieparzyste\"};case 4:return {\"Parzyste\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Dziedzicz\"){r->set(r->l.slot(pi,si,3),-1);}if(x==\"Tydzień\"){r->set(r->l.slot(pi,si,3),0);}if(x==\"Co N dni\"){r->set(r->l.slot(pi,si,3),1);}if(x==\"Nieparzyste\"){r->set(r->l.slot(pi,si,3),2);}if(x==\"Parzyste\"){r->set(r->l.slot(pi,si,3),3);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_membership",
+      "name": "BIS_CONTROLLER_NAME Sekcja w starcie",
+      "entity_category": "config",
+      "options": [
+        "Dziedzicz",
+        "Pomiń",
+        "Uwzględnij"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.over(pi,si,zi,0)))-(-1);switch(value){case 0:return {\"Dziedzicz\"};case 1:return {\"Pomiń\"};case 2:return {\"Uwzględnij\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Dziedzicz\"){r->set(r->l.over(pi,si,zi,0),-1);}if(x==\"Pomiń\"){r->set(r->l.over(pi,si,zi,0),0);}if(x==\"Uwzględnij\"){r->set(r->l.over(pi,si,zi,0),1);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_start_order",
+      "name": "BIS_CONTROLLER_NAME Kolejność startu",
+      "entity_category": "config",
+      "options": [
+        "Zawór przed pompą",
+        "Pompa przed zaworem"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.pump(mi,3)))-(0);switch(value){case 0:return {\"Zawór przed pompą\"};case 1:return {\"Pompa przed zaworem\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Zawór przed pompą\"){r->set(r->l.pump(mi,3),0);}if(x==\"Pompa przed zaworem\"){r->set(r->l.pump(mi,3),1);}"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_stop_order",
+      "name": "BIS_CONTROLLER_NAME Kolejność zatrzymania",
+      "entity_category": "config",
+      "options": [
+        "Pompa przed zaworem",
+        "Zawór przed pompą"
+      ],
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int value=int(r->get(r->l.pump(mi,4)))-(0);switch(value){case 0:return {\"Pompa przed zaworem\"};case 1:return {\"Zawór przed pompą\"};}return {};",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(x==\"Pompa przed zaworem\"){r->set(r->l.pump(mi,4),0);}if(x==\"Zawór przed pompą\"){r->set(r->l.pump(mi,4),1);}"
+        }
+      ]
+    }
+  ],
+  "datetime": [
+    {
+      "platform": "template",
+      "type": "time",
+      "id": "bis_controller_token_start_time",
+      "name": "BIS_CONTROLLER_NAME Godzina wybranego startu",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;esphome::ESPTime t{};t.hour=r->get(r->l.slot(pi,si,1));t.minute=r->get(r->l.slot(pi,si,2));t.second=0;return t;",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;if(r->occupied()){r->event(21);return;}r->set(r->l.slot(pi,si,1),x.hour);r->set(r->l.slot(pi,si,2),x.minute);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "type": "date",
+      "id": "bis_controller_token_zone_date",
+      "name": "BIS_CONTROLLER_NAME Sekcja data odniesienia",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return esphome::ESPTime::from_epoch_utc(int64_t(r->get(r->l.zone(zi,11)))*86400);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,11),boneio_irrigation::civil_day(x.year,x.month,x.day_of_month));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "type": "date",
+      "id": "bis_controller_token_program_date",
+      "name": "BIS_CONTROLLER_NAME Program data odniesienia",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return esphome::ESPTime::from_epoch_utc(int64_t(r->get(r->l.program(pi,4)))*86400);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,4),boneio_irrigation::civil_day(x.year,x.month,x.day_of_month));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "type": "date",
+      "id": "bis_controller_token_slot_date",
+      "name": "BIS_CONTROLLER_NAME Start data odniesienia",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return esphome::ESPTime::from_epoch_utc(int64_t(r->get(r->l.slot(pi,si,6)))*86400);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,6),boneio_irrigation::civil_day(x.year,x.month,x.day_of_month));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "type": "date",
+      "id": "bis_controller_token_exclusion_date",
+      "name": "BIS_CONTROLLER_NAME Data wykluczenia",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int i=id(bis_controller_token_exclusion_context).active_index().value_or(0);int day=r->get(r->l.allow(r->l.z,0)+i);if(day<=0)return {};return esphome::ESPTime::from_epoch_utc(int64_t(day)*86400);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int i=id(bis_controller_token_exclusion_context).active_index().value_or(0);r->set(r->l.allow(r->l.z,0)+i,boneio_irrigation::civil_day(x.year,x.month,x.day_of_month));"
+        }
+      ]
+    }
+  ],
+  "number": [
+    {
+      "platform": "template",
+      "id": "bis_controller_token_season",
+      "name": "BIS_CONTROLLER_NAME Korekta globalna",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 300,
+      "step": 1,
+      "unit_of_measurement": "%",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(2);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(2,x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_max_wait",
+      "name": "BIS_CONTROLLER_NAME Maksymalne oczekiwanie",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(4);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(4,x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_parallel",
+      "name": "BIS_CONTROLLER_NAME Limit równoległych sekcji",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 2,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(5);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(5,x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_rain_hours",
+      "name": "BIS_CONTROLLER_NAME Rain Delay godziny",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 720,
+      "step": 1,
+      "unit_of_measurement": "h",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(6);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(6,x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_sensor_grace",
+      "name": "BIS_CONTROLLER_NAME Czas stabilizacji czujników",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 300,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(7);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(7,x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_temperature_min",
+      "name": "BIS_CONTROLLER_NAME Minimalna temperatura",
+      "entity_category": "config",
+      "min_value": -50,
+      "max_value": 80,
+      "step": 0.1,
+      "unit_of_measurement": "°C",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(11);",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(11,x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_duration",
+      "name": "BIS_CONTROLLER_NAME Sekcja czas domyślny",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,1));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,1),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_min",
+      "name": "BIS_CONTROLLER_NAME Sekcja czas minimalny",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,2));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,2),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_max",
+      "name": "BIS_CONTROLLER_NAME Sekcja czas maksymalny",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,3));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,3),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_priority",
+      "name": "BIS_CONTROLLER_NAME Sekcja priorytet",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 100,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,5));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,5),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_group",
+      "name": "BIS_CONTROLLER_NAME Sekcja grupa hydrauliczna",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 32,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,6));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,6),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_every",
+      "name": "BIS_CONTROLLER_NAME Sekcja co N dni",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 365,
+      "step": 1,
+      "unit_of_measurement": "d",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,10));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,10),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_anchor",
+      "name": "BIS_CONTROLLER_NAME Sekcja dzień odniesienia",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 99999,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,11));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,11),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_cycle",
+      "name": "BIS_CONTROLLER_NAME Sekcja maksymalny cykl (0 bez cykli)",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,12));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,12),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_soak",
+      "name": "BIS_CONTROLLER_NAME Sekcja czas wsiąkania",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,13));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,13),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_order",
+      "name": "BIS_CONTROLLER_NAME Sekcja kolejność",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 3,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,14));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,14),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_zone_soil",
+      "name": "BIS_CONTROLLER_NAME Sekcja próg wilgotności",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 100,
+      "step": 1,
+      "unit_of_measurement": "%",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.zone(zi,16));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.zone(zi,16),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_every",
+      "name": "BIS_CONTROLLER_NAME Program co N dni",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 365,
+      "step": 1,
+      "unit_of_measurement": "d",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.program(pi,3));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,3),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_anchor",
+      "name": "BIS_CONTROLLER_NAME Program dzień odniesienia",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 99999,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.program(pi,4));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,4),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_season",
+      "name": "BIS_CONTROLLER_NAME Program korekta sezonowa",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 300,
+      "step": 1,
+      "unit_of_measurement": "%",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.program(pi,5));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,5),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_priority",
+      "name": "BIS_CONTROLLER_NAME Program priorytet",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 100,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.program(pi,6));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,6),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_cycle",
+      "name": "BIS_CONTROLLER_NAME Program maksymalny cykl (0 z sekcji)",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.program(pi,8));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,8),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_program_soak",
+      "name": "BIS_CONTROLLER_NAME Program czas wsiąkania",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.program(pi,9));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.program(pi,9),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_member_duration",
+      "name": "BIS_CONTROLLER_NAME Czas w programie (0 domyślny)",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.member(pi,zi,1));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.member(pi,zi,1),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_member_order",
+      "name": "BIS_CONTROLLER_NAME Kolejność w programie",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 3,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.member(pi,zi,2));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.member(pi,zi,2),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_hour",
+      "name": "BIS_CONTROLLER_NAME Godzina startu",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 23,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.slot(pi,si,1));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,1),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_minute",
+      "name": "BIS_CONTROLLER_NAME Minuta startu",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 59,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.slot(pi,si,2));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,2),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_every",
+      "name": "BIS_CONTROLLER_NAME Start co N dni",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 365,
+      "step": 1,
+      "unit_of_measurement": "d",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.slot(pi,si,5));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,5),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_anchor",
+      "name": "BIS_CONTROLLER_NAME Start dzień odniesienia",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 99999,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.slot(pi,si,6));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,6),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_cycle",
+      "name": "BIS_CONTROLLER_NAME Start maksymalny cykl (-1 dziedzicz)",
+      "entity_category": "config",
+      "min_value": -1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.slot(pi,si,7));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,7),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_soak",
+      "name": "BIS_CONTROLLER_NAME Start wsiąkanie (-1 dziedzicz)",
+      "entity_category": "config",
+      "min_value": -1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.slot(pi,si,8));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.slot(pi,si,8),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_duration",
+      "name": "BIS_CONTROLLER_NAME Czas sekcji w starcie (0 dziedzicz)",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.over(pi,si,zi,1));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.over(pi,si,zi,1),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_slot_order",
+      "name": "BIS_CONTROLLER_NAME Kolejność w starcie (-1 dziedzicz)",
+      "entity_category": "config",
+      "min_value": -1,
+      "max_value": 3,
+      "step": 1,
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.over(pi,si,zi,2));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.over(pi,si,zi,2),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_start_delay",
+      "name": "BIS_CONTROLLER_NAME Pompa opóźnienie startu",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,1));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,1),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_stop_delay",
+      "name": "BIS_CONTROLLER_NAME Pompa opóźnienie stopu",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,2));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,2),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_min_run",
+      "name": "BIS_CONTROLLER_NAME Pompa minimalny czas pracy",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,5));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,5),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_rest",
+      "name": "BIS_CONTROLLER_NAME Pompa przerwa ochronna",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,6));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,6),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_max_run",
+      "name": "BIS_CONTROLLER_NAME Pompa maksymalny czas pracy",
+      "entity_category": "config",
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,7));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,7),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_pressure",
+      "name": "BIS_CONTROLLER_NAME Pompa minimalne ciśnienie",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 100,
+      "step": 0.1,
+      "unit_of_measurement": "bar",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,9));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,9),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_flow_min",
+      "name": "BIS_CONTROLLER_NAME Pompa minimalny przepływ",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 10000,
+      "step": 0.1,
+      "unit_of_measurement": "L/min",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,10));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,10),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_flow_max",
+      "name": "BIS_CONTROLLER_NAME Pompa maksymalny przepływ",
+      "entity_category": "config",
+      "min_value": 0,
+      "max_value": 10000,
+      "step": 0.1,
+      "unit_of_measurement": "L/min",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r)return {};int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;return r->get(r->l.pump(mi,11));",
+      "set_action": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->set(r->l.pump(mi,11),x);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_manual_seconds",
+      "name": "BIS_CONTROLLER_NAME Ręczny czas sekcji",
+      "optimistic": true,
+      "min_value": 1,
+      "max_value": 86400,
+      "step": 1,
+      "initial_value": 600,
+      "unit_of_measurement": "s"
+    }
+  ],
+  "button": [
+    {
+      "platform": "template",
+      "id": "bis_controller_token_start_zone",
+      "name": "BIS_CONTROLLER_NAME Uruchom sekcję",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->manual_zone(zi);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_stop_zone",
+      "name": "BIS_CONTROLLER_NAME Zatrzymaj sekcję",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->cancel_zone(zi);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_start_program",
+      "name": "BIS_CONTROLLER_NAME Uruchom program",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->enqueue_program(pi);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_stop_program",
+      "name": "BIS_CONTROLLER_NAME Zatrzymaj program",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->cancel_program(pi);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_start_all",
+      "name": "BIS_CONTROLLER_NAME Uruchom wszystkie sekcje",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->manual_all();"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_stop_all",
+      "name": "BIS_CONTROLLER_NAME STOP awaryjny",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->stop_all(5,true);r->commit();"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_skip",
+      "name": "BIS_CONTROLLER_NAME Pomiń i przejdź dalej",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->skip();"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_rain_apply",
+      "name": "BIS_CONTROLLER_NAME Zastosuj Rain Delay",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->rain_delay(r->get(6));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_rain_cancel",
+      "name": "BIS_CONTROLLER_NAME Anuluj Rain Delay",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->rain_delay(0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_reset_fault",
+      "name": "BIS_CONTROLLER_NAME Skasuj alarm",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->reset_fault();r->commit();"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_exclusion_clear",
+      "name": "BIS_CONTROLLER_NAME Usuń datę wykluczenia",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;int i=id(bis_controller_token_exclusion_context).active_index().value_or(0);r->set(r->l.allow(r->l.z,0)+i,0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_start_custom",
+      "name": "BIS_CONTROLLER_NAME Uruchom sekcję na własny czas",
+      "on_press": [
+        {
+          "lambda": "auto *r=id(bis_controller_token);if(!r)return;int zi=id(bis_controller_token_zone_context).active_index().value_or(0),mi=id(bis_controller_token_pump_context).active_index().value_or(0),pi=id(bis_controller_token_program_context).active_index().value_or(0),si=id(bis_controller_token_slot_context).active_index().value_or(0);(void)zi;(void)mi;(void)pi;(void)si;r->manual_zone(zi,uint32_t(id(bis_controller_token_manual_seconds).state));"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_run_bis_program_token",
+      "name": "BIS_CONTROLLER_NAME BIS_PROGRAM_NAME START",
+      "icon": "mdi:sprinkler",
+      "on_press": [
+        {
+          "lambda": "if(id(bis_controller_token))id(bis_controller_token)->enqueue_program(0);"
+        }
+      ]
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_stop_bis_program_token",
+      "name": "BIS_CONTROLLER_NAME BIS_PROGRAM_NAME STOP",
+      "icon": "mdi:stop",
+      "on_press": [
+        {
+          "lambda": "if(id(bis_controller_token))id(bis_controller_token)->cancel_program(0);"
+        }
+      ]
+    }
+  ],
+  "sensor": [
+    {
+      "platform": "template",
+      "id": "bis_controller_token_seconds_bis_zone_token",
+      "name": "BIS_CONTROLLER_NAME BIS_ZONE_NAME Czas pracy",
+      "unit_of_measurement": "s",
+      "state_class": "total_increasing",
+      "accuracy_decimals": 0,
+      "update_interval": "10s",
+      "lambda": "return id(bis_controller_token)?id(bis_controller_token)->zoneSeconds[0]:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_progress",
+      "name": "BIS_CONTROLLER_NAME Postęp",
+      "update_interval": "5s",
+      "accuracy_decimals": 0,
+      "unit_of_measurement": "%",
+      "lambda": "auto *r=id(bis_controller_token);return r?r->planned?std::min(100.0,r->delivered*100.0/r->planned):0:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_remaining",
+      "name": "BIS_CONTROLLER_NAME Pozostały czas",
+      "update_interval": "5s",
+      "accuracy_decimals": 0,
+      "unit_of_measurement": "s",
+      "lambda": "auto *r=id(bis_controller_token);return r?r->remaining():0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_queued",
+      "name": "BIS_CONTROLLER_NAME Wpisy w kolejce",
+      "update_interval": "5s",
+      "accuracy_decimals": 0,
+      "lambda": "auto *r=id(bis_controller_token);return r?r->count:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_runs",
+      "name": "BIS_CONTROLLER_NAME Liczba uruchomień",
+      "update_interval": "5s",
+      "accuracy_decimals": 0,
+      "lambda": "auto *r=id(bis_controller_token);return r?r->runs:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_water",
+      "name": "BIS_CONTROLLER_NAME Zużyta woda",
+      "update_interval": "5s",
+      "accuracy_decimals": 2,
+      "unit_of_measurement": "L",
+      "lambda": "auto *r=id(bis_controller_token);return r?r->waterLiters:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_rain_remaining",
+      "name": "BIS_CONTROLLER_NAME Rain Delay pozostało",
+      "update_interval": "5s",
+      "accuracy_decimals": 0,
+      "unit_of_measurement": "s",
+      "lambda": "auto *r=id(bis_controller_token);return r?r->rainUntil>r->epoch?r->rainUntil-r->epoch:0:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_last_run",
+      "name": "BIS_CONTROLLER_NAME Ostatnie uruchomienie UTC",
+      "update_interval": "5s",
+      "accuracy_decimals": 0,
+      "unit_of_measurement": "s",
+      "lambda": "auto *r=id(bis_controller_token);return r?r->lastRun:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_seconds_bis_pump_token",
+      "name": "BIS_CONTROLLER_NAME BIS_PUMP_NAME Czas pracy",
+      "unit_of_measurement": "s",
+      "state_class": "total_increasing",
+      "accuracy_decimals": 0,
+      "update_interval": "10s",
+      "lambda": "return id(bis_controller_token)?id(bis_controller_token)->pumpSeconds[0]:0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_total_seconds",
+      "name": "BIS_CONTROLLER_NAME Łączny czas podlewania",
+      "unit_of_measurement": "s",
+      "state_class": "total_increasing",
+      "accuracy_decimals": 0,
+      "update_interval": "10s",
+      "lambda": "if(!id(bis_controller_token))return 0;uint64_t total=0;for(int i=0;i<1;i++)total+=id(bis_controller_token)->zoneSeconds[i];return float(total);"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_active_count",
+      "name": "BIS_CONTROLLER_NAME Aktywne sekcje",
+      "accuracy_decimals": 0,
+      "update_interval": "1s",
+      "lambda": "if(!id(bis_controller_token))return 0;int count=0;for(int i=0;i<1;i++)if(id(bis_controller_token)->active[i].on)count++;return count;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_duration_bis_zone_token",
+      "name": "BIS_CONTROLLER_NAME BIS_ZONE_NAME Czas domyślny",
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "return id(bis_controller_token)?id(bis_controller_token)->z(0,1):0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_remaining_bis_zone_token",
+      "name": "BIS_CONTROLLER_NAME BIS_ZONE_NAME Pozostały czas",
+      "unit_of_measurement": "s",
+      "update_interval": "1s",
+      "lambda": "auto *r=id(bis_controller_token);if(!r||!r->active[0].on)return 0;auto &a=r->active[0];double elapsed=r->mono-a.began;return a.job.remaining>elapsed?a.job.remaining-elapsed:0;"
+    }
+  ],
+  "script": [
+    {
+      "id": "bis_controller_token_start_bis_program_token",
+      "mode": "single",
+      "then": [
+        {
+          "lambda": "if(id(bis_controller_token))id(bis_controller_token)->enqueue_program(0);"
+        }
+      ]
+    }
+  ],
+  "binary_sensor": [
+    {
+      "platform": "template",
+      "id": "bis_controller_token_alarm",
+      "name": "BIS_CONTROLLER_NAME Alarm",
+      "device_class": "problem",
+      "lambda": "return id(bis_controller_token)&&id(bis_controller_token)->fault!=0;"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_running_bis_pump_token",
+      "name": "BIS_CONTROLLER_NAME BIS_PUMP_NAME Praca",
+      "lambda": "return id(bis_controller_token_driver_bis_pump_token).state;"
+    }
+  ],
+  "text_sensor": [
+    {
+      "platform": "template",
+      "id": "bis_controller_token_next_start",
+      "name": "BIS_CONTROLLER_NAME Najbliższy start",
+      "update_interval": "60s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};auto *r=id(bis_controller_token);auto now=id(bis_controller_token_clock).now();if(!now.is_valid())return {\"Brak czasu\"};for(int step=1;step<=10080;step++){auto t=esphome::ESPTime::from_epoch_local(now.timestamp-now.second+step*60);if(r->rainUntil>t.timestamp)continue;if(r->scheduled_at(boneio_irrigation::civil_day(t.year,t.month,t.day_of_month),(t.day_of_week+5)%7,t.day_of_month,t.hour*60+t.minute))return t.strftime(\"%Y-%m-%d %H:%M\");}return {\"Brak startów w ciągu 7 dni\"};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_last_reason",
+      "name": "BIS_CONTROLLER_NAME Przyczyna zatrzymania",
+      "update_interval": "5s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};switch(id(bis_controller_token)->lastReason){case 0:return {\"Gotowy\"};case 1:return {\"Zakończono sekcję\"};case 2:return {\"Sterownik wyłączony\"};case 3:return {\"Deszcz / Rain Delay\"};case 4:return {\"Pominięto sekcję\"};case 5:return {\"STOP awaryjny\"};case 6:return {\"Wejście awaryjne\"};case 7:return {\"Brak wiarygodnego pomiaru\"};case 8:return {\"Błąd trwałego zapisu\"};case 10:return {\"Sekcja nieaktywna\"};case 11:return {\"Blokada temperatury\"};case 12:return {\"Wilgotna gleba lub brak pomiaru\"};case 13:return {\"Dzień poza harmonogramem\"};case 14:return {\"Korekta sezonowa 0%\"};case 15:return {\"Konflikt — pominięto program\"};case 16:return {\"Pełna kolejka\"};case 17:return {\"Przekroczono czas oczekiwania\"};case 18:return {\"Start zakolejkowany — zasoby zajęte\"};case 20:return {\"Nieprawidłowa wartość\"};case 21:return {\"Zmiany dopiero po zakończeniu cyklu\"};case 22:return {\"Niedozwolona / serwisowana pompa\"};case 23:return {\"Rain Delay wymaga poprawnego czasu\"};case 24:return {\"Czas poza limitami / Cycle & Soak\"};case 25:return {\"Limit pracy pompy\"};case 26:return {\"Limit pracy sekcji\"};case 27:return {\"Wykonawca nie rozpoczął pracy\"};case 28:return {\"Nieprawidłowy przepływ / ciśnienie\"};case 30:return {\"Start sekcji\"};}return {\"Nieznany kod\"};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_last_error",
+      "name": "BIS_CONTROLLER_NAME Ostatni błąd",
+      "update_interval": "5s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};switch(id(bis_controller_token)->fault){case 0:return {\"Gotowy\"};case 1:return {\"Zakończono sekcję\"};case 2:return {\"Sterownik wyłączony\"};case 3:return {\"Deszcz / Rain Delay\"};case 4:return {\"Pominięto sekcję\"};case 5:return {\"STOP awaryjny\"};case 6:return {\"Wejście awaryjne\"};case 7:return {\"Brak wiarygodnego pomiaru\"};case 8:return {\"Błąd trwałego zapisu\"};case 10:return {\"Sekcja nieaktywna\"};case 11:return {\"Blokada temperatury\"};case 12:return {\"Wilgotna gleba lub brak pomiaru\"};case 13:return {\"Dzień poza harmonogramem\"};case 14:return {\"Korekta sezonowa 0%\"};case 15:return {\"Konflikt — pominięto program\"};case 16:return {\"Pełna kolejka\"};case 17:return {\"Przekroczono czas oczekiwania\"};case 18:return {\"Start zakolejkowany — zasoby zajęte\"};case 20:return {\"Nieprawidłowa wartość\"};case 21:return {\"Zmiany dopiero po zakończeniu cyklu\"};case 22:return {\"Niedozwolona / serwisowana pompa\"};case 23:return {\"Rain Delay wymaga poprawnego czasu\"};case 24:return {\"Czas poza limitami / Cycle & Soak\"};case 25:return {\"Limit pracy pompy\"};case 26:return {\"Limit pracy sekcji\"};case 27:return {\"Wykonawca nie rozpoczął pracy\"};case 28:return {\"Nieprawidłowy przepływ / ciśnienie\"};case 30:return {\"Start sekcji\"};}return {\"Nieznany kod\"};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_status",
+      "name": "BIS_CONTROLLER_NAME Status",
+      "update_interval": "1s",
+      "lambda": "if(!id(bis_controller_token))return {\"Uruchamianie\"};auto *r=id(bis_controller_token);if(r->fault)return {\"Alarm \"+std::to_string(r->fault)};if(r->occupied())return {\"Nawadnianie / wsiąkanie\"};if(!r->validTime)return {\"Oczekiwanie na poprawny czas\"};return {\"Gotowy; kod \"+std::to_string(r->lastReason)};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_active_zone",
+      "name": "BIS_CONTROLLER_NAME Aktywna sekcja",
+      "update_interval": "1s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};auto *r=id(bis_controller_token);for(int i=0;i<1;i++)if(r->active[i].on){int v=i;switch(v){case 0:return {\"BIS_ZONE_NAME\"};default:return {\"Ręcznie\"};}}return {\"\"};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_active_program",
+      "name": "BIS_CONTROLLER_NAME Aktywny program",
+      "update_interval": "1s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};auto *r=id(bis_controller_token);for(int i=0;i<1;i++)if(r->active[i].on){int v=r->active[i].job.program;switch(v){case 0:return {\"BIS_PROGRAM_NAME\"};default:return {\"Ręcznie\"};}}return {\"\"};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_history",
+      "name": "BIS_CONTROLLER_NAME Ostatnie zdarzenia lokalne",
+      "update_interval": "5s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};auto *r=id(bis_controller_token);std::string text;for(int k=0;k<32&&k<int(r->historyCount);k++){auto &e=r->history[(r->historyCount-1-k)%32];std::string line=std::to_string(uint32_t(e.epoch))+\" code=\"+std::to_string(e.code)+\" zone=\"+std::to_string(e.zone)+\" program=\"+std::to_string(e.program)+\"; \";if(text.size()+line.size()>250)break;text+=line;}return {text};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_summary_bis_program_token",
+      "name": "BIS_CONTROLLER_NAME BIS_PROGRAM_NAME Podsumowanie",
+      "update_interval": "2s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};auto *r=id(bis_controller_token);int count=0;float seconds=0;for(int z=0;z<1;z++)if(r->get(r->l.member(0,z))){count++;float own=r->get(r->l.member(0,z,1));seconds+=own>0?own:r->z(z,1);}return {std::string(r->p(0,0)?\"Włączony\":\"Wyłączony\")+\" | sekcje: \"+std::to_string(count)+\" | bazowo s: \"+std::to_string(int(seconds))+\" | sezon %: \"+std::to_string(int(r->p(0,5)))};"
+    },
+    {
+      "platform": "template",
+      "id": "bis_controller_token_pump_bis_zone_token",
+      "name": "BIS_CONTROLLER_NAME BIS_ZONE_NAME Przypisana pompa",
+      "update_interval": "1s",
+      "lambda": "if(!id(bis_controller_token))return {\"\"};switch(int(id(bis_controller_token)->z(0,4))){case 0:return {\"BIS_PUMP_NAME\"};}return {\"Bez pompy\"};"
+    }
+  ]
+}
